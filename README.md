@@ -99,3 +99,4 @@ guess_the_number_game.py
 ```
 
 
+Organizing those files in this way can help maintain clarity and structure in your project. You can then import and use functions or classes from these files in other parts of your project or in a main script.
