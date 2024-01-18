@@ -7,6 +7,7 @@ Implement the classic word-guessing game where players try to guess a word one l
 You can use a predefined word list or fetch words from an online API.
 
 ```bash
+hangman_game.py
 ```
 
 2. Tic-Tac-Toe:
@@ -15,6 +16,7 @@ Create a simple two-player Tic-Tac-Toe game where players take turns marking cel
 Add features like checking for a win or a draw.
 
 ```bash
+tic_tac_toe_game.py
 ```
 
 3. Snake Game:
@@ -23,6 +25,7 @@ Develop the classic Snake game where the player controls a snake that must eat f
 Be mindful of collision with walls and the snake's own tail.
 
 ```bash
+snake_game.py
 ```
 
 4. Pong Game:
@@ -30,6 +33,7 @@ Be mindful of collision with walls and the snake's own tail.
 Implement the classic Pong game where two players control paddles on opposite sides of the screen, trying to hit a ball back and forth.
 
 ```bash
+pong_game.py
 ```
 
 5. Memory Puzzle:
@@ -38,6 +42,7 @@ Create a memory puzzle game where players need to match pairs of cards.
 The cards are initially face-down, and players flip them over to find matching pairs.
 
 ```bash
+memory_puzzle_game.py
 ```
 
 7. Maze Solver:
@@ -46,6 +51,7 @@ Design a maze-solving game where the player navigates through a maze.
 You can create your own mazes or randomly generate them.
 
 ```bash
+maze_solver_game.py
 ```
 
 8. Quiz Game:
@@ -54,6 +60,7 @@ Develop a quiz game where players answer multiple-choice questions.
 You can implement a scoring system and a timer for added challenge.
 
 ```bash
+quiz_game.py
 ```
 
 9. Space Invaders:
@@ -61,6 +68,7 @@ You can implement a scoring system and a timer for added challenge.
 Build a classic Space Invaders-style game where the player controls a spaceship and must shoot down advancing waves of aliens.
 
 ```bash
+space_invaders_game.py
 ```
 
 10. Flappy Bird Clone:
@@ -69,6 +77,7 @@ Create a simplified version of the popular Flappy Bird game.
 The player controls a bird that must navigate through gaps in pipes.
 
 ```bash
+flappy_bird_clone.py
 ```
 
 11. RPG Text Adventure:
@@ -77,6 +86,7 @@ Develop a text-based role-playing game where players choose to progress through 
 You can incorporate a character with stats, inventory, and branching narratives.
 
 ```bash
+rpg_text_adventure_game.py
 ```
 
 12. Guess The Number Challenge.
@@ -85,6 +95,7 @@ To play the game, run this script, and it will prompt you to enter guesses until
 The game will provide feedback on whether your guess is too high or too low.
 
 ```bash
+guess_the_number_game.py
 ```
 
 
