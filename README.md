@@ -38,8 +38,7 @@ pong_game.py
 
 5. Memory Puzzle:
 
-Create a memory puzzle game where players need to match pairs of cards. 
-The cards are initially face-down, and players flip them over to find matching pairs.
+The game will display a grid of symbols, and you need to match pairs by entering the row and column numbers of the cards you want to reveal. Try to find all the pairs in the shortest time possible!
 
 ```bash
 memory_puzzle_game.py
