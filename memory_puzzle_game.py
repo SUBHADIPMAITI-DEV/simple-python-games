@@ -1,139 +1,73 @@
+# memory_puzzle_game.py
 
-import pygame
-import sys
 import random
-import requests
-from io import BytesIO
+import time
 
-# Initialize Pygame
-pygame.init()
+def create_board(size):
+    symbols = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    random_symbols = symbols * (size // 2)
+    random.shuffle(random_symbols)
 
-# Constants
-WIDTH, HEIGHT = 1000, 600
-GRID_SIZE = 4
-CARD_SIZE = WIDTH // GRID_SIZE
-FPS = 60
+    board = [[0] * size for _ in range(size)]
+    for i in range(size):
+        for j in range(size):
+            board[i][j] = random_symbols.pop()
 
-# Colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
+    return board
 
-# Cards (Provide image URLs)
-CARD_URLS = [
-    "https://productsbuckets.s3.eu-north-1.amazonaws.com/images/apple.png",
-    "https://productsbuckets.s3.eu-north-1.amazonaws.com/images/banana.png",
-    "https://productsbuckets.s3.eu-north-1.amazonaws.com/images/cherry.png",
-    "https://productsbuckets.s3.eu-north-1.amazonaws.com/images/grape.png",
-    "https://productsbuckets.s3.eu-north-1.amazonaws.com/images/lemon.png",
-    "https://productsbuckets.s3.eu-north-1.amazonaws.com/images/orange.png",
-    "https://productsbuckets.s3.eu-north-1.amazonaws.com/images/pear.png",
-    "https://productsbuckets.s3.eu-north-1.amazonaws.com/images/strawberry.png"
-]
+def display_board(board, revealed):
+    for i in range(len(board)):
+        for j in range(len(board[i])):
+            if revealed[i][j]:
+                print(board[i][j], end=" ")
+            else:
+                print("*", end=" ")
+        print()
 
-# Shuffle the card URLs
-random.shuffle(CARD_URLS)
+def get_guess(size):
+    while True:
+        try:
+            row = int(input(f"Enter the row (1-{size}): ")) - 1
+            col = int(input(f"Enter the column (1-{size}): ")) - 1
 
-# Create a dictionary to store the card images
-CARD_DICT = {}
+            if 0 <= row < size and 0 <= col < size:
+                return row, col
+            else:
+                print("Invalid input. Please enter valid row and column numbers.")
+        except ValueError:
+            print("Invalid input. Please enter numeric values.")
 
-# Function to load image with error handling
-def load_image(url, index):
-    try:
-        response = requests.get(url)
-        response.raise_for_status()  # Raise an error for bad responses
-        return pygame.image.load(BytesIO(response.content))
-    except Exception as e:
-        print(f"Error loading image from {url}: {e}")
-        print(f"Image at index {index} will be set to None.")
-        return None
+def play_memory_puzzle():
+    print("Welcome to Memory Puzzle!")
 
-# Load images and populate CARD_DICT
-for i, url in enumerate(CARD_URLS):
-    image = load_image(url, i)
-    CARD_DICT[i] = image
+    board_size = 4
+    board = create_board(board_size)
+    revealed = [[False] * board_size for _ in range(board_size)]
+    pairs_found = 0
 
-# Game setup
-game_board = [[-1 for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
-selected_cards = []
-score = 0
+    while pairs_found < board_size * board_size // 2:
+        display_board(board, revealed)
 
-# Pygame window setup
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Memory Puzzle")
+        first_guess = get_guess(board_size)
+        revealed[first_guess[0]][first_guess[1]] = True
+        display_board(board, revealed)
 
-# Font setup
-font = pygame.font.Font(None, 36)
+        second_guess = get_guess(board_size)
+        revealed[second_guess[0]][second_guess[1]] = True
+        display_board(board, revealed)
 
-# Function to draw the grid
-def draw_grid():
-    for i in range(GRID_SIZE + 1):
-        pygame.draw.line(screen, WHITE, (i * CARD_SIZE, 0), (i * CARD_SIZE, HEIGHT), 2)
-        pygame.draw.line(screen, WHITE, (0, i * CARD_SIZE), (WIDTH, i * CARD_SIZE), 2)
+        if board[first_guess[0]][first_guess[1]] == board[second_guess[0]][second_guess[1]]:
+            print("You found a pair!")
+            pairs_found += 1
+        else:
+            print("No match. Try again.")
+            revealed[first_guess[0]][first_guess[1]] = False
+            revealed[second_guess[0]][second_guess[1]] = False
 
-# Function to draw cards
-def draw_cards():
-    for i in range(GRID_SIZE):
-        for j in range(GRID_SIZE):
-            if game_board[i][j] == -1:  # Card face-down
-                pygame.draw.rect(screen, WHITE, (j * CARD_SIZE, i * CARD_SIZE, CARD_SIZE, CARD_SIZE))
-            else:  # Card face-up
-                if CARD_DICT[game_board[i][j]] is not None:
-                    screen.blit(CARD_DICT[game_board[i][j]], (j * CARD_SIZE, i * CARD_SIZE))
+        time.sleep(1)  # Pause for a moment to display the cards
+        print("\n" + "-" * 30 + "\n")
 
-# Function to display the score
-def draw_score():
-    score_text = font.render(f"Score: {score}", True, WHITE)
-    screen.blit(score_text, (10, 10))
+    print("Congratulations! You found all the pairs.")
 
-# Function to check for a win
-def check_win():
-    return all(card == -1 for row in game_board for card in row)
-
-# Function to reset the game
-def reset_game():
-    global game_board, selected_cards, score
-    random.shuffle(CARD_URLS)
-    CARD_DICT.update({i: pygame.image.load(BytesIO(requests.get(url).content)) for i, url in enumerate(CARD_URLS)})
-    game_board = [[-1 for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
-    selected_cards = []
-    score = 0
-
-# Main game loop
-running = True
-clock = pygame.time.Clock()
-
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            row = event.pos[1] // CARD_SIZE
-            col = event.pos[0] // CARD_SIZE
-
-            if (row, col) not in selected_cards and game_board[row][col] == -1:
-                selected_cards.append((row, col))
-                if len(selected_cards) == 2:
-                    i1, j1 = selected_cards[0]
-                    i2, j2 = selected_cards[1]
-
-                    if game_board[i1][j1] == game_board[i2][j2]:
-                        score += 1
-                        if check_win():
-                            reset_game()
-                    else:
-                        pygame.time.delay(1000)
-                        game_board[i1][j1] = game_board[i2][j2] = -1
-
-                    selected_cards = []
-
-    screen.fill(BLACK)
-    draw_grid()
-    draw_cards()
-    draw_score()
-
-    pygame.display.flip()
-    clock.tick(FPS)
-
-pygame.quit()
-sys.exit()
+if __name__ == "__main__":
+    play_memory_puzzle()
