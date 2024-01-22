@@ -98,5 +98,12 @@ The game will provide feedback on whether your guess is too high or too low.
 guess_the_number_game.py
 ```
 
+13. Rock, Paper, Scissors Game.
+
+The program will prompt you to enter your choice (rock, paper, or scissors) and then display the computer's choice and the result of the game. After each round, it will ask if you want to play again. Enter "yes" to continue or any other input to exit the game.
+
+```bash
+rock_paper_scissors_game.py
+```
 
 Organizing those files in this way can help maintain clarity and structure in your project. You can then import and use functions or classes from these files in other parts of your project or in a main script.
