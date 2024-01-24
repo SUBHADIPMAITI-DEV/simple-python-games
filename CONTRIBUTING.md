@@ -1,6 +1,6 @@
 # Contributing to Simple-Python-Games
 
-👋 Welcome! We appreciate your interest in contributing toSimple-Python-Games. 
+👋 Welcome! We appreciate your interest in contributing to Simple-Python-Games. 
 Whether you want to report a bug, suggest an enhancement, or contribute code, your help is highly appreciated.
 
 ## Bug Reports and Feature Requests
