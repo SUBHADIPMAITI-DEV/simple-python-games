@@ -1,5 +1,5 @@
-# simple-python-game
-Here are some game ideas that you can consider building in Python.
+# simple-python-game 🕹️
+Here are some game 🎮 ideas that you can consider building in Python.
 
 1. Hangman Game:
 
