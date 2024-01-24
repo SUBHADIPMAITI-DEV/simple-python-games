@@ -105,4 +105,26 @@ The program will prompt you to enter your choice (rock, paper, or scissors) and 
 rock_paper_scissors_game.py
 ```
 
+13. Rock, Paper, Scissors Game.
+
+Four is a classic two-player connection game in which the players first choose a color and then take turns dropping one colored disc from the top into a vertically suspended grid. The pieces fall straight down, occupying the lowest available space within the column. The objective of the game is to connect four of one's own discs of the same color vertically, horizontally, or diagonally before the opponent.
+
+```bash
+connect_four.py
+```
+
+14. demo
+15. demo
+16. demo
+17. demo
+18. demo
+19. demo
+20. demo
+21. demo
+22. demo
+23. demo
+24. demo
+25. demo
+
+
 Organizing those files in this way can help maintain clarity and structure in your project. You can then import and use functions or classes from these files in other parts of your project or in a main script.
